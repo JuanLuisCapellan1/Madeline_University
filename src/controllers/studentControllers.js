@@ -4,7 +4,6 @@ async function createStudent(req, res, next){
   try {
     const data = { NOMBRES: req.body.nombres, APELLIDOS: req.body.apellidos, EMAIL: req.body.email, EDAD: req.body.edad, 
       TELEFONO: req.body.telefono, CEDULA: req.body.cedula, DIRECCION: req.body.direccion};
-    
     res.json({ message: await studentServices.createNewStudent(data)});
   } catch (error) {
     next(error);

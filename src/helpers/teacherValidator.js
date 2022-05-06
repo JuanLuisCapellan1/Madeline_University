@@ -11,11 +11,20 @@ async function validateData(data) {
   else if(data.EDAD === undefined || data.EDAD === 0 || data.EDAD === null){
     throw new Error('PLEASE PROVIDE AN AGE');
   }
-  else if(data.TELEFONO === undefined || data.TELEFONO === '' || data.TELEFONO === null){
+  else if(typeof(data.EDAD) !== 'number'){
+    throw new Error('INVALID AGE FORMAT');
+  }
+  else if(data.TELEFONO === undefined || data.TELEFONO === 0 || data.TELEFONO === null){
     throw new Error('PLEASE PROVIDE A PHONE NUMBER');
   }
-  else if(data.CEDULA === undefined || data.CEDULA === '' || data.CEDULA === null){
+  else if(typeof(data.TELEFONO) !== 'number'){
+    throw new Error('INVALID PHONE FORMAT');
+  }
+  else if(data.CEDULA === undefined || data.CEDULA === 0 || data.CEDULA === null){
     throw new Error('PLEASE PROVIDE AN IDENTIFICATION CARD');
+  }
+  else if(typeof(data.CEDULA) !== 'number'){
+    throw new Error('INVALID PERSONAL IDENTIFICATION FORMAT');
   }
   else if(data.DIRECCION === undefined || data.DIRECCION === '' || data.DIRECCION === null){
     throw new Error('PLEASE PROVIDE AN ADDRESS');
@@ -27,6 +36,9 @@ async function validateNewTeacher(data) {
   await validateData(data);
   if(data.SALARIO === undefined || data.SALARIO === 0 || data.SALARIO === null){
     throw new Error('PLEASE PROVIDE A SALARY');
+  }
+  else if(typeof(data.SALARIO) !== 'number'){
+    throw new Error('INVALID SALARY FORMAT');
   }
 }
 
