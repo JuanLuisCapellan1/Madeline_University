@@ -22,9 +22,17 @@ async function updateSessionStudent(data){
     throw new Error( 'PLEASE PROVIDE AN ID');
   }
   const connection = await getConnection();
-  const verifySID = await connection.query(`SELECT ID FROM sessiones_estudiantes WHERE ID = '${data.id}'`);
-  if(verifySID.length === 0){
-    throw new Error('ID NOT FOUND');
+  if(data.ID_MATERIA){
+    const verifySIDMateria = await connection.query(`SELECT ID FROM materias WHERE ID = '${data.ID_MATERIA}'`);
+    if(verifySIDMateria.length === 0){
+      throw new Error('ID NOT FOUND');
+    }
+  }
+  else if(data.ID_ESTUDIANTE){
+    const verifySIDStudent = await connection.query(`SELECT ID FROM estudiantes WHERE ID = '${data.ID_ESTUDIANTE}'`);
+    if(verifySIDStudent.length === 0){
+      throw new Error('ID NOT FOUND');
+    }
   }
   await connection.query('UPDATE sessiones_estudiantes SET ? WHERE ID = ?', [data, data.id]);
   return 'SESSION UPDATED SUCCESSFULLY';

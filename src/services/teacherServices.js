@@ -40,7 +40,6 @@ async function updateTeacher(data){
   if(verifySID.length === 0){
     throw new Error('ID NOT FOUND');
   }
-  
   const verifySTeacher = await connection.query(`SELECT EMAIL FROM profesores WHERE EMAIL = '${data.EMAIL}'`);
   if(verifySTeacher.length > 0){
     throw new Error('THIS EMAIL ALREADY EXISTS');
@@ -48,6 +47,9 @@ async function updateTeacher(data){
   const verifyIdTeacher = await connection.query(`SELECT CEDULA FROM profesores WHERE CEDULA = '${data.CEDULA}'`);
   if(verifyIdTeacher.length > 0){
     throw new Error('THIS PERSONAL IDENTIFICATION ALREADY EXISTS');
+  }
+  if(data === undefined || data === null){
+    throw new Error('PLEASE PROVIDE A DATA');
   }
   await connection.query('UPDATE profesores SET ? WHERE ID = ?', [data, data.id]);
   return 'TEACHER UPDATED SUCCESSFULLY';
